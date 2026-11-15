@@ -1,11 +1,12 @@
-# 🏍️ Bajaj Dealership & Service Operations Enterprise SaaS
+# 📱 Inventory & Billing Mobile Application — Automotive Dealership & Service ERP
 
 <div align="center">
 
-### **End-to-End Dealership ERP: Service Job Card Lifecycle, Technician Telemetry, Spare Parts Inventory & POS Billing**
+### **Cross-Platform Mobile App (Android & iOS): Workshop Job Card Telemetry, Barcode Spare Parts Depletion & POS Billing**
 
-[![Platform](https://img.shields.io/badge/Platform-Hybrid_Mobile_%26_Web-119EFF?style=for-the-badge&logo=capacitor&logoColor=white)](https://capacitorjs.com)
-[![Frontend](https://img.shields.io/badge/Frontend-React_19_%2B_Vite-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev)
+[![Platform](https://img.shields.io/badge/Platform-Capacitor_Mobile_App_(Android_%26_iOS)-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://capacitorjs.com)
+[![Mobile Architecture](https://img.shields.io/badge/Mobile_Architecture-Offline_First_Mobile_ERP-119EFF?style=for-the-badge&logo=capacitor&logoColor=white)](https://capacitorjs.com)
+[![Frontend](https://img.shields.io/badge/Frontend-React_19_%2B_TypeScript-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev)
 [![Backend](https://img.shields.io/badge/Backend-Node.js_Express-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org)
 [![Operations](https://img.shields.io/badge/Operations-Automotive_Service_Center-FF9900?style=for-the-badge)](https://rahaman1721.framer.website)
 [![Confidentiality](https://img.shields.io/badge/Client_Confidentiality-NDA_Protected-red?style=for-the-badge)]()
@@ -33,7 +34,7 @@ Authorized automotive dealerships and multi-bay service workshops operate under 
 3. **Technician Idle Time & Lack of Telemetry:** Service Managers had zero live visibility into mechanic bay allocations, ongoing diagnosis stages, or reasons for repair delays.
 4. **Unmanaged Re-Complaints:** When a customer returned with a recurring complaint, service staff lacked quick access to historical Job Card notes and parts replaced, leading to customer churn and warranty disputes.
 
-This platform digitizes the entire dealership ecosystem into a **unified, multi-role mobile and web architecture** connecting Service Advisors, Workshop Mechanics, Parts Inventory Managers, and Cashiers.
+This platform digitizes the entire dealership ecosystem into a **cross-platform mobile application and dealership operations architecture (Capacitor Android & iOS)** connecting Service Advisors, Workshop Mechanics on handheld mobile devices, Parts Inventory Managers, and Cashiers.
 
 ---
 
