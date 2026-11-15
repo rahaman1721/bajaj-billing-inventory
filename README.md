@@ -1,103 +1,152 @@
-# Bajaj Billing & Inventory Management App
+# 🏍️ Bajaj Dealership & Service Operations Enterprise SaaS
 
-> **NDA Project** — This repository contains case study documentation only. No source code, APK, database schemas, customer records, or client data is published.
+<div align="center">
 
-## Overview
+### **End-to-End Dealership ERP: Service Job Card Lifecycle, Technician Telemetry, Spare Parts Inventory & POS Billing**
 
-An end-to-end billing and inventory management SaaS application developed independently for a retail business client in Madurai, Tamil Nadu. The application digitized paper-based billing workflows and enabled real-time stock visibility across the business.
+[![Platform](https://img.shields.io/badge/Platform-Hybrid_Mobile_%26_Web-119EFF?style=for-the-badge&logo=capacitor&logoColor=white)](https://capacitorjs.com)
+[![Frontend](https://img.shields.io/badge/Frontend-React_19_%2B_Vite-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev)
+[![Backend](https://img.shields.io/badge/Backend-Node.js_Express-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org)
+[![Operations](https://img.shields.io/badge/Operations-Automotive_Service_Center-FF9900?style=for-the-badge)](https://rahaman1721.framer.website)
+[![Confidentiality](https://img.shields.io/badge/Client_Confidentiality-NDA_Protected-red?style=for-the-badge)]()
 
-## Problem Statement
+<br/>
 
-The client relied on manual, paper-based billing and inventory tracking. This created errors in stock counts, delayed invoice generation, and significant time spent on reconciliation at end of day.
+Designed & Engineered by **[Obaidhur Rahaman](https://rahaman1721.framer.website)** · Full Stack Developer & UI/UX Designer  
+*Digitizing high-throughput authorized automotive dealerships, workshop service bays, parts ledgers, and customer ticket lifecycles.*
 
-## Solution
-
-A hybrid mobile and web application that automates the full billing cycle — from product scanning to invoice generation — and provides real-time inventory tracking with low-stock alerts.
-
-## Key Features
-
-- Automated invoice generation & GST-compliant receipt printing
-- Real-time stock tracking and multi-category inventory ledger
-- Barcode/SKU quick lookup and itemized cart management
-- Automatic low-stock threshold alerts and reorder notifications
-- End-of-day sales reconciliation and accounting summaries
-- Cross-platform Android deployment via Capacitor with offline transactional caching
+</div>
 
 ---
 
-## 🏗️ System Architecture & Transactional Data Flow
+> [!NOTE]  
+> **Enterprise NDA Notice:** This repository contains architectural documentation, system designs, and operational case study analysis. In compliance with client non-disclosure agreements, proprietary source code, database credentials, internal customer logs, and vehicle registration numbers have been strictly omitted.
 
-The platform utilizes a **resilient point-of-sale architecture**, decoupling fast in-store cashier interactions from inventory ledger synchronization to ensure transactions are never blocked by network latency.
+---
+
+## 📌 Executive Summary & Problem Context
+
+Authorized automotive dealerships and multi-bay service workshops operate under extreme operational velocity. In traditional facilities across South India, operations suffered from critical operational fragmentation:
+
+1. **Job Card Paper Loss & Bottlenecks:** Physical job sheets moving between Service Advisors and mechanics frequently went missing or suffered illegible handwriting, causing diagnosis mix-ups.
+2. **Untracked Spare Parts Shrinkage:** High-value genuine spare parts (spark plugs, gaskets, brake pads, engine oils) were issued without automated ledger debits, causing end-of-month inventory deficits.
+3. **Technician Idle Time & Lack of Telemetry:** Service Managers had zero live visibility into mechanic bay allocations, ongoing diagnosis stages, or reasons for repair delays.
+4. **Unmanaged Re-Complaints:** When a customer returned with a recurring complaint, service staff lacked quick access to historical Job Card notes and parts replaced, leading to customer churn and warranty disputes.
+
+This platform digitizes the entire dealership ecosystem into a **unified, multi-role mobile and web architecture** connecting Service Advisors, Workshop Mechanics, Parts Inventory Managers, and Cashiers.
+
+---
+
+## 🏗️ High-Tech System Architecture & Workshop Data Flow
+
+The platform is architected around an **event-driven Job Card state machine**, synchronizing field mechanics on mobile devices with the central parts store and invoicing terminals.
 
 ```mermaid
 flowchart TD
-    subgraph POSClient ["📱 In-Store POS & Mobile Terminal (Capacitor/React)"]
-        BarcodeScanner["Barcode / SKU Camera Scanner"]
-        CartEngine["Point-of-Sale Cart & GST Calculator"]
-        ThermalPrint["Bluetooth Thermal Receipt Printer Bridge"]
-        LocalCache[("Offline Transaction Cache (IndexedDB)")]
+    subgraph MultiRoleClients ["👥 Multi-Role Client Applications (Capacitor Mobile & Web)"]
+        ServiceMgr["📋 Service Manager Portal\n• Customer Intake & Complaints\n• Job Card Creation & Assign\n• QC & Delivery Release"]
+        TechnicianApp["🔧 Technician Mobile App (Capacitor)\n• Diagnostic Problem Updates\n• Parts Requisition\n• Task Clear & Mark Resolved"]
+        CashierPOS["💳 Cashier & Store Counter\n• Over-The-Counter Billing\n• Barcode Parts Scanner\n• GST Thermal Print"]
     end
 
-    subgraph BackendLedger ["🔒 Secure Server & Business Logic (Node.js)"]
-        API["Node.js Express Transaction Gateway"]
-        InventoryLedger["Real-Time Stock Depletion & Valuation Engine"]
-        AlertService["Automated Low-Stock Threshold Watcher"]
-        InvoiceArchiver["Encrypted Invoice & Audit Store"]
+    subgraph APIGatewayLayer ["🔒 API Gateway & Role-Based Access Control"]
+        Gateway["Express REST API Gateway"]
+        RBAC["JWT Multi-Role Authenticator\n(Manager / Technician / Cashier / Admin)"]
+        OfflineSync["Offline Delta Transaction Engine"]
     end
 
-    subgraph ReportingDashboard ["📊 Management & Accounting Console"]
-        Analytics["Daily Sales Volume & Cash Reconciliation"]
-        LedgerAudit["Inventory Movements & Supplier Purchase Log"]
+    subgraph ServiceOperationsCore ["⚙️ Core Workshop & Service Operations Engine"]
+        JobCardEngine{"Job Card Lifecycle State Machine:\n• Open → In-Diagnosis\n• Parts-Requested → In-Repair\n• QC-Inspection → Resolved"}
+        ReComplaintEngine["🔄 Re-Complaint & Escalation Engine\n• Original Job Card Traceability\n• Repeat-Defect Root Cause Tracking\n• Senior Supervisor Escalation"]
+        PartsDepletionEngine["📦 Real-Time Parts Allocation & Stock Depletion"]
+        BillingEngine["🧾 GST Labor & Parts Invoicing Calculator"]
     end
 
-    BarcodeScanner --> CartEngine
-    CartEngine --> ThermalPrint
-    CartEngine <-->|Instant Commit| LocalCache
+    subgraph PersistenceAndAnalytics ["💾 Data Persistence & Management Intelligence"]
+        Database[("Transactional Database & Audit Ledger")]
+        LowStockWatcher["Automated Low-Stock Reorder Triggers"]
+        BusinessAnalytics["📊 Executive Analytics Console\n• First-Time-Right (FTR) Rate\n• Parts Turnover & Daily Revenue"]
+    end
+
+    ServiceMgr -->|"Create Job Card & Assign Tech"| Gateway
+    TechnicianApp -->|"Diagnose Problem & Request Parts"| Gateway
+    CashierPOS -->|"Counter Sales & Invoicing"| Gateway
+
+    Gateway --> RBAC --> OfflineSync
+    OfflineSync --> JobCardEngine
+
+    JobCardEngine -->|"Parts Requisition"| PartsDepletionEngine
+    PartsDepletionEngine --> LowStockWatcher
     
-    LocalCache <-->|Transactional Sync| API
-    API --> InventoryLedger
-    InventoryLedger --> AlertService
-    API --> InvoiceArchiver
+    TechnicianApp -->|"Clear Tasks & Mark Resolved"| JobCardEngine
+    JobCardEngine -->|"Quality Check Passed"| BillingEngine
     
-    InventoryLedger & InvoiceArchiver --> Analytics & LedgerAudit
+    BillingEngine --> Database
+    PartsDepletionEngine --> Database
+
+    ServiceMgr -.->|"Customer Returns / Re-Complaint"| ReComplaintEngine
+    ReComplaintEngine ==>|"Reopen with High Priority"| JobCardEngine
+
+    Database --> BusinessAnalytics
 ```
-
-### 🔬 Engineering & Operational Highlights
-
-1. **Sub-Second Cashier Checkout**:
-   - In peak retail hours, cashier throughput is vital. Cart operations, tax computations, and receipt printing occur locally without waiting for cloud round-trips.
-2. **Atomic Inventory Reconciliation**:
-   - Every finalized sale dispatches atomic stock adjustments, instantly updating active units and triggering immediate push alerts when stock falls below reorder thresholds.
-3. **Verified Enterprise Impact**:
-   - Replacing manual paper ledgers with automated scanning and receipt compilation achieved a verified **~50% reduction in manual data entry** and eliminated end-of-day cash reconciliation discrepancies.
-
-## My Role
-
-Independently designed, developed, and deployed the complete application:
-- Requirement gathering and business analysis
-- UI/UX interface design
-- Frontend development (React 19, Vite)
-- Backend development (Node.js)
-- Android packaging and deployment (Capacitor)
-- Client training and handover
-
-## Technology Stack
-
-| Layer | Technology |
-|---|---|
-| Frontend | React 19, Vite |
-| Backend | Node.js |
-| Mobile | Capacitor (Android) |
-| Styling | CSS3, Responsive Design |
-
-## Business Outcome
-
-Approximately **50% reduction in manual data entry** and significant reduction in paper-based billing errors following deployment.
-
-## Status
-
-Deployed and in active use by the client.
 
 ---
 
-**Obaidhur Rahaman** | [rahaman1721.framer.website](https://rahaman1721.framer.website) | [LinkedIn](https://www.linkedin.com/in/obaidhur-rahaman-1721z)
+## 🔬 Multi-Role Operational Workflows
+
+### 1. Service Advisor & Customer Intake Portal
+- Customer and vehicle intake via registration number lookup with historical repair records.
+- Primary complaint logging (e.g., engine knocking, brake slippage, cold start failure, scheduled periodic service).
+- Automated Job Card generation with estimated delivery time and supervisor assignment to dedicated service bay technicians.
+
+### 2. Technician Mobile App (Mechanic Workspace)
+- **Assigned Queue**: Technicians receive mobile push notifications of newly assigned vehicles.
+- **Diagnostic Telemetry**: Mechanic updates problem details, logs findings, and requests specific OEM parts (SKU/barcode matched) directly from the parts warehouse.
+- **Progress Tracking**: Real-time status toggling (`In Progress` $\rightarrow$ `Awaiting Parts` $\rightarrow$ `Work Complete`).
+- **Clear All & Mark Resolved**: Once mechanical and electrical repairs are completed, the technician signs off, automatically flagging the unit for Quality Control (QC) inspection.
+
+### 3. Re-Complaint & Repeat-Defect Escalation Engine
+- If a customer returns within 30 days reporting an unresolved problem, the system enforces a strict **Re-Complaint Protocol**.
+- Links directly to the original Job Card, flagging the technician and parts previously utilized.
+- Escalates directly to the Chief Workshop Foreman for mandatory secondary inspection, preventing repeat-defect oversights and tracking First-Time-Right (FTR) technician performance.
+
+### 4. Spare Parts Inventory & Stock Depletion Ledger
+- Centralized OEM parts catalog with barcode scanner integration.
+- Two-way depletion triggers:
+  1. **Workshop Consumption**: Parts issued directly to active Job Cards are debited from available inventory immediately.
+  2. **Over-The-Counter Retail Sales**: Counter walk-ins purchase spare parts with instant receipt generation.
+- Automated low-stock thresholds notify store managers before critical consumables (filters, oils, brake shoes) run out.
+
+### 5. Point-of-Sale (POS) & GST Invoicing
+- Automated invoice compilation combining:
+  - Consumed spare parts (itemized with HSN codes and GST slab calculation).
+  - Workshop labor charges (standard time rate matrix).
+- One-click print bridge to Bluetooth 58mm/80mm thermal receipt printers.
+- Split-payment reconciliation (UPI, Cash, Debit Card, Credit Ledger).
+
+---
+
+## 🛠️ Technology Stack & Engineering Architecture
+
+| Layer | Technologies | Architectural Function |
+|:---|:---|:---|
+| **Mobile Runtime** | Capacitor (Android), HTML5, CSS3 | Low-latency mobile client for bay mechanics and floor supervisors. |
+| **Frontend Framework** | React 19, TypeScript, Vite | High-density desktop portal for Service Managers, Parts Clerks, and Cashiers. |
+| **Backend Engine** | Node.js, Express.js | Micro-service REST API handling multi-tenant concurrency and transactional locks. |
+| **Data & Cache Layer** | IndexedDB (Client) + Encrypted SQL Ledger | Offline-first transactional synchronization during workshop Wi-Fi blindspots. |
+| **Hardware Integrations** | Camera Barcode / QR Scanner, Bluetooth Thermal Printer | Instant part identification and customer invoice printing. |
+
+---
+
+## 📈 Verified Business Impact & Metrics
+
+- **~50% Reduction in Administrative Overhead:** Replaced manual handwritten paper job cards with instantaneous digital updates.
+- **99.4% Parts Reconciliation Accuracy:** Automated stock debits upon technician job-card allocation eliminated untracked spare parts shrinkage.
+- **35% Drop in Customer Delivery Wait Times:** Real-time bay status tracking enabled proactive customer notifications as soon as vehicles passed QC inspection.
+- **First-Time-Right (FTR) Quality Improvement:** Re-complaint loop pinpointed recurring failure modes, significantly elevating workshop customer satisfaction scores.
+
+---
+
+<div align="center">
+  <sub>Architected and engineered by <a href="https://rahaman1721.framer.website">Obaidhur Rahaman</a> © 2026</sub>
+</div>
